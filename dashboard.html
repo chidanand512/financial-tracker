@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Finance Tracker</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>💰 Finance Dashboard</h1>
+  <div style="display: flex; align-items: center; gap: 20px;">
+    <a class="btn" href="/add">+ Add Transaction</a>
+    <div class="profile-dropdown">
+      <button class="profile-btn">👤</button>
+      <div class="profile-dropdown-content">
+        <span class="profile-username">{{ session['user']['name'] }}</span>
+        <a href="/change_password">🔐 Change Password</a>
+        <a href="/logout">🚪 Logout</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="cards">
+  <div class="card">
+    <h3>Total Balance</h3>
+    <h2>₹{{ balance }}</h2>
+  </div>
+
+  <div class="card">
+    <h3>Monthly Income</h3>
+    <h2 style="color: #10b981;">₹{{ income }}</h2>
+  </div>
+
+  <div class="card">
+    <h3>Monthly Expenses</h3>
+    <h2 style="color: #ef4444;">₹{{ expenses }}</h2>
+  </div>
+
+  <div class="card">
+    <h3>Savings Rate</h3>
+    <h2>{{ savings_rate }}%</h2>
+  </div>
+</section>
+
+<div class="history-box">
+  <h3>📊 Transaction History</h3>
+  {% if transactions %}
+    {% for t in transactions %}
+      <div class="txn">
+        <div>
+          <strong>{{ t.category }}</strong>
+          <p class="muted">{{ t.description }}</p>
+        </div>
+        <div class="{{ 'green' if t.type=='Income' else 'red' }}">
+          {{ '+' if t.type=='Income' else '-' }}₹{{ t.amount }}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="text-align: center; color: #999;">No transactions yet. Start by adding one!</p>
+  {% endif %}
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Transaction - Finance Tracker</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>💰 Finance Dashboard</h1>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <a class="btn" href="/dashboard">← Back to Dashboard</a>
+      <div class="profile-dropdown">
+        <button class="profile-btn">👤</button>
+        <div class="profile-dropdown-content">
+          <span class="profile-username">{{ session['user']['name'] }}</span>
+          <a href="/change_password">🔐 Change Password</a>
+          <a href="/logout">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <div class="card form-card">
+    <h2 style="text-align: center;"> Add New Transaction</h2>
+    <p style="text-align: center;" class="muted">Record a new expense or income</p>
+
+    <form method="post">
+
+      <div class="row">
+        <div>
+          <label>Transaction Type</label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="type" value="Expense"> Expense</label>
+            <label class="radio-item"><input type="radio" name="type" value="Income"> Income</label>
+            <label class="radio-item"><input type="radio" name="type" value="Transfer"> Transfer</label>
+          </div>
+        </div>
+
+        <div>
+          <label>Amount</label>
+          <input type="number" name="amount" placeholder="₹ 0.00" step="0.01" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Date</label>
+          <input type="date" name="date" value="{{ today }}">
+        </div>
+
+        <div>
+          <label>Category</label>
+          <select name="category" required>
+            <option value="">Select Category</option>
+            <option>Food</option>
+            <option>Rent</option>
+            <option>Salary</option>
+            <option>Transport</option>
+            <option>Shopping</option>
+            <option>Utilities</option>
+            <option>Entertainment</option>
+            <option>Healthcare</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label>Account</label>
+        <select name="account" required>
+          <option value="">Select Account</option>
+          <option>Main Checking</option>
+          <option>Savings Account</option>
+          <option>Credit Card</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Description</label>
+        <textarea name="description" placeholder="Enter transaction details..."></textarea>
+      </div>
+
+      <div class="actions">
+        <a href="/dashboard" class="btn cncl">Cancel</a>
+        <button type="submit" class="btn save">✓ Save Transaction</button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+
+</html>
